@@ -1,0 +1,107 @@
+.container {
+  margin: 0 auto;
+  /* max-width: 1280px; */
+}
+
+.title {
+  text-align: center;
+  margin: 40px;
+}
+
+.container__book {
+  display: flex;
+  flex-direction: row;
+  width: 600px;
+  height: 261px;
+  background-color: rgb(167, 172, 169);
+}
+
+.container__books {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  row-gap: 35px;
+  padding: 40px;
+}
+
+.image {
+  width: 200px;
+  height: 261px;
+}
+
+.book__description {
+  width: 400px;
+  padding: 15px;
+  position: relative;
+}
+
+.book__title {
+  margin: 20px 0px;
+  width: 380px;
+  line-height: 125%;
+}
+
+.book__footer {
+  display: flex;
+  flex-direction: row;
+  column-gap: 200px;
+  position: absolute;
+  bottom: 0px;
+  padding: 10px 0px;
+}
+
+.overlay {
+  position: absolute;
+  display: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(167, 172, 169, 0.8);
+  z-index: 2;
+  -webkit-animation: fadeIn 0.5s;
+  animation: fadeIn 0.5s;
+}
+
+.popup {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  top: 25%;
+  left: 25%;
+  text-align: center;
+  background: rgb(187, 231, 172);
+  padding: 20px;
+}
+
+.pop-title {
+  font-size: 24px;
+  height: 50px;
+  line-height: 50px;
+  color: black;
+  font-style: oblique;
+}
+
+.pop-content{
+  font-size: 20px;
+  height: 50px;
+  line-height: 150%;
+  color: black;
+}
+
+.close-icon {
+  cursor: pointer;
+  right: 9px;
+  top: 6px;
+  position: absolute;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
