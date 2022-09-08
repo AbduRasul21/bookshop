@@ -6,6 +6,33 @@ let h1Title = document.createElement("h1");
 h1Title.classList.add("title");
 divContainer.append(h1Title);
 
+{/* <i class="fa fa-camera-retro fa-5x"></i>; */ }
+
+
+let iconDiv = document.createElement("div");
+iconDiv.classList.add("icon__wrapper");
+
+divContainer.append(iconDiv);
+
+let iconBag = document.createElement("i");
+iconBag.classList.add("fa");
+iconBag.classList.add("fa-shopping-cart");
+iconBag.classList.add("fa-3x");
+
+iconDiv.append(iconBag);
+
+let iconCounter = document.createElement("div");
+iconCounter.classList.add("icon__counter");
+
+iconCounter.innerHTML = '2';
+
+
+iconDiv.append(iconCounter);
+
+
+
+
+
 h1Title.innerHTML = "Book Catalog";
 
 let containerBooks = document.createElement("section");
@@ -111,3 +138,5 @@ fetch("./books.json") //path to the file with json data
       });
     });
   });
+
+

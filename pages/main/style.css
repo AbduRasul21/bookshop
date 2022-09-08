@@ -8,6 +8,28 @@
   margin: 40px;
 }
 
+.icon__wrapper{
+  position: absolute;
+  top: 40px;
+  right: 100px;
+  background-color: beige;
+  /* position: relative; */
+}
+
+.icon__counter{
+color: azure;
+width: 50%;
+text-align: center;
+ background-color: green;
+ border-radius: 50%;
+ -webkit-border-radius: 50%;
+ -moz-border-radius: 50%;
+ -ms-border-radius: 50%;
+ -o-border-radius: 50%;
+ position: absolute;
+ top:-5px;
+}
+
 .container__book {
   display: flex;
   flex-direction: row;
