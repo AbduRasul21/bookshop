@@ -6,9 +6,10 @@ let h1Title = document.createElement("h1");
 h1Title.classList.add("title");
 divContainer.append(h1Title);
 
-{/* <i class="fa fa-camera-retro fa-5x"></i>; */ }
-
-
+{
+  /* <i class="fa fa-camera-retro fa-5x"></i>; */
+}
+// Container for shppoing cart
 let iconDiv = document.createElement("div");
 iconDiv.classList.add("icon__wrapper");
 
@@ -24,14 +25,9 @@ iconDiv.append(iconBag);
 let iconCounter = document.createElement("div");
 iconCounter.classList.add("icon__counter");
 
-iconCounter.innerHTML = '2';
-
-
 iconDiv.append(iconCounter);
 
-
-
-
+// Title
 
 h1Title.innerHTML = "Book Catalog";
 
@@ -47,7 +43,6 @@ fetch("./books.json") //path to the file with json data
   })
   .then((data) => {
     data.forEach((value) => {
-     
       let containerBook = document.createElement("div");
       containerBook.classList.add("container__book");
       containerBooks.append(containerBook);
@@ -132,11 +127,33 @@ fetch("./books.json") //path to the file with json data
 
       addToBag.addEventListener("click", () => {
         itemsInBag.push(value);
+
         itemsInBag.forEach((element) => {
           console.log(element.title);
+          iconCounter.innerHTML = `${itemsInBag.length}`;
         });
       });
     });
+    // iconDiv.addEventListener("click", () => {
+    //   console.log(itemsInBag);
+    // });
   });
 
+// start items in bag
 
+let itemsWrapper = document.createElement("div");
+itemsWrapper.classList.add("items__wrapper");
+itemsWrapper.classList.add("none__visible");
+
+divContainer.append(itemsWrapper);
+
+iconDiv.addEventListener("click", () => {
+  itemsWrapper.classList.toggle("none__visible");
+  itemsInBag.forEach((value) => {
+    let authorsInBag = document.createElement("p");
+    itemsWrapper.append(authorsInBag);
+    authorsInBag.innerHTML = `${value.author}`;
+
+    console.log(value.author);
+  });
+});

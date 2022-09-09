@@ -8,26 +8,42 @@
   margin: 40px;
 }
 
-.icon__wrapper{
-  position: absolute;
+.icon__wrapper {
+  position: fixed;
   top: 40px;
   right: 100px;
-  background-color: beige;
+  cursor: pointer;
   /* position: relative; */
 }
 
-.icon__counter{
-color: azure;
-width: 50%;
-text-align: center;
- background-color: green;
- border-radius: 50%;
- -webkit-border-radius: 50%;
- -moz-border-radius: 50%;
- -ms-border-radius: 50%;
- -o-border-radius: 50%;
- position: absolute;
- top:-5px;
+.items__wrapper {
+  position: absolute;
+  
+  background-color: aquamarine;
+  top: 80px;
+  right: 60px;
+  margin: 20px;
+  padding: 20px;
+  
+}
+
+.none__visible {
+  display: none;
+}
+
+.icon__counter {
+  color: azure;
+  width: 50%;
+  text-align: center;
+  background-color: green;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  position: absolute;
+  top: -25%;
+  right: -25%;
 }
 
 .container__book {
@@ -105,7 +121,7 @@ text-align: center;
   font-style: oblique;
 }
 
-.pop-content{
+.pop-content {
   font-size: 20px;
   height: 50px;
   line-height: 150%;
