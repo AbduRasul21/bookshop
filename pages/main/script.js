@@ -71,7 +71,7 @@ fetch("./books.json") //path to the file with json data
 
       let bookPrice = document.createElement("p");
       bookPrice.classList.add("book__price");
-      bookPrice.innerHTML = `Price: ${value.price}$`;
+      bookPrice.innerHTML = `${value.price}$`;
 
       let bookFooter = document.createElement("div");
       bookFooter.classList.add("book__footer");
@@ -125,14 +125,22 @@ fetch("./books.json") //path to the file with json data
 
       // start add to bag
 
-      addToBag.addEventListener("click", () => {
+      addToBag.addEventListener("click", (e) => {
+        var product = e.target.parentElement.parentElement;
+
+        console.log(product);
         itemsInBag.push(value);
 
         itemsInBag.forEach((element) => {
-          console.log(element.title);
           iconCounter.innerHTML = `${itemsInBag.length}`;
         });
+
+        getProductInfo(product);
       });
+
+      //end add to bag
+
+      
     });
     // iconDiv.addEventListener("click", () => {
     //   console.log(itemsInBag);
@@ -157,3 +165,24 @@ iconDiv.addEventListener("click", () => {
     console.log(value.author);
   });
 });
+
+
+
+// start getProductInfo;
+      
+
+var cartItemID = 1;
+function getProductInfo(product) {
+  let productInfo = {
+    id: cartItemID,
+    name: product.querySelector(".book__title").textContent,
+    price: product.querySelector(".book__price").textContent,
+  };
+  cartItemID++;
+  iconCounter.innerHTML = cartItemID-1;
+  console.log(productInfo);
+}
+
+ // end getProductInfo;
+
+ 
