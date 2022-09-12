@@ -126,7 +126,7 @@ fetch("./books.json") //path to the file with json data
       // start add to bag
 
       addToBag.addEventListener("click", (e) => {
-        var product = e.target.parentElement.parentElement;
+        var product = e.target.parentElement.parentElement.parentElement;
 
         console.log(product);
         itemsInBag.push(value);
@@ -139,13 +139,29 @@ fetch("./books.json") //path to the file with json data
       });
 
       //end add to bag
-
-      
     });
     // iconDiv.addEventListener("click", () => {
     //   console.log(itemsInBag);
     // });
   });
+
+// start getProductInfo;
+
+var cartItemID = 1;
+function getProductInfo(product) {
+  var productInfo = {
+    id: cartItemID,
+    name: product.querySelector(".book__title").textContent,
+    price: product.querySelector(".book__price").textContent,
+    imgSrc: product.querySelector(".image").src,
+  };
+  cartItemID++;
+  iconCounter.innerHTML = cartItemID - 1;
+  console.log(productInfo);
+  addToCardList(productInfo);
+}
+
+// end getProductInfo;
 
 // start items in bag
 
@@ -153,36 +169,30 @@ let itemsWrapper = document.createElement("div");
 itemsWrapper.classList.add("items__wrapper");
 itemsWrapper.classList.add("none__visible");
 
-divContainer.append(itemsWrapper);
+iconDiv.append(itemsWrapper);
 
-iconDiv.addEventListener("click", () => {
+iconBag.addEventListener("click", () => {
   itemsWrapper.classList.toggle("none__visible");
-  itemsInBag.forEach((value) => {
-    let authorsInBag = document.createElement("p");
-    itemsWrapper.append(authorsInBag);
-    authorsInBag.innerHTML = `${value.author}`;
-
-    console.log(value.author);
-  });
 });
 
+// end items in bag
 
+// start addToCardLsit
 
-// start getProductInfo;
-      
-
-var cartItemID = 1;
-function getProductInfo(product) {
-  let productInfo = {
-    id: cartItemID,
-    name: product.querySelector(".book__title").textContent,
-    price: product.querySelector(".book__price").textContent,
-  };
-  cartItemID++;
-  iconCounter.innerHTML = cartItemID-1;
-  console.log(productInfo);
+function addToCardList(productInfo) {
+  let cartItem = document.createElement("div");
+  cartItem.classList.add("cart-item");
+  itemsWrapper.append(cartItem);
+  cartItem.innerHTML = `
+        <img class = "cart-image" src = "${productInfo.imgSrc}" alt = "product image">
+        <div class = "cart-item-info">
+            <h3 class = "cart-item-name">${productInfo.name}</h3>
+            
+            <span class = "cart-item-price">${productInfo.price}</span>
+        </div>
+        <button type = "button" class = "cart-item-del-btn">
+            <i class = "fa fa-times"></i>
+        </button>`;
 }
 
- // end getProductInfo;
-
- 
+// end addToCardLsit

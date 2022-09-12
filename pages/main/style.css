@@ -14,17 +14,21 @@
   right: 100px;
   cursor: pointer;
   /* position: relative; */
+    z-index: 5;
 }
 
 .items__wrapper {
   position: absolute;
-  
-  background-color: aquamarine;
-  top: 80px;
-  right: 60px;
+
+  background-color: rgb(87, 97, 94);
+  top: 30px;
+  right: 0px;
   margin: 20px;
   padding: 20px;
-  
+  width: 526px;
+  min-height: 200px;
+  max-height: 600px;
+overflow-y: scroll;
 }
 
 .none__visible {
@@ -44,6 +48,20 @@
   position: absolute;
   top: -25%;
   right: -25%;
+}
+
+.cart-item {
+  display: flex;
+  height: 100px;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+.cart-item-del-btn {
+  height: 50px;
+}
+.cart-image {
+  height: 100px;
 }
 
 .container__book {
