@@ -9,18 +9,20 @@ divContainer.append(h1Title);
 {
   /* <i class="fa fa-camera-retro fa-5x"></i>; */
 }
-// Container for shppoing cart
+// Container for shoppoing cart
 let iconDiv = document.createElement("div");
 iconDiv.classList.add("icon__wrapper");
 
 divContainer.append(iconDiv);
-
+let iconButton = document.createElement("button");
+iconButton.classList.add("icon-button");
+iconDiv.append(iconButton);
 let iconBag = document.createElement("i");
 iconBag.classList.add("fa");
 iconBag.classList.add("fa-shopping-cart");
 iconBag.classList.add("fa-3x");
 
-iconDiv.append(iconBag);
+iconButton.append(iconBag);
 
 let iconCounter = document.createElement("div");
 iconCounter.classList.add("icon__counter");
@@ -128,12 +130,11 @@ fetch("./books.json") //path to the file with json data
       addToBag.addEventListener("click", (e) => {
         var product = e.target.parentElement.parentElement.parentElement;
 
-        console.log(product);
         itemsInBag.push(value);
 
-        itemsInBag.forEach((element) => {
-          iconCounter.innerHTML = `${itemsInBag.length}`;
-        });
+        // itemsInBag.forEach((element) => {
+        //   iconCounter.innerHTML = `${itemsInBag.length}`;
+        // });
 
         getProductInfo(product);
       });
@@ -141,7 +142,7 @@ fetch("./books.json") //path to the file with json data
       //end add to bag
     });
     // iconDiv.addEventListener("click", () => {
-    //   console.log(itemsInBag);
+
     // });
   });
 
@@ -156,9 +157,10 @@ function getProductInfo(product) {
     imgSrc: product.querySelector(".image").src,
   };
   cartItemID++;
-  iconCounter.innerHTML = cartItemID - 1;
-  console.log(productInfo);
+  // iconCounter.innerHTML = cartItemID - 1;
+
   addToCardList(productInfo);
+  saveProductInStorage(productInfo);
 }
 
 // end getProductInfo;
@@ -166,23 +168,33 @@ function getProductInfo(product) {
 // start items in bag
 
 let itemsWrapper = document.createElement("div");
+let itemsWrapperFooter = document.createElement("div");
+
 itemsWrapper.classList.add("items__wrapper");
 itemsWrapper.classList.add("none__visible");
+itemsWrapperFooter.classList.add("items-wrapper-footer");
+itemsWrapperFooter.innerHTML = `<h3>Total: $</h3>
+                <span id = "cart-total-value">0</span>`;
+let cartTotalValue=itemsWrapper.querySelector('#cart-total-value');
 
 iconDiv.append(itemsWrapper);
-
+itemsWrapper.append(itemsWrapperFooter);
 iconBag.addEventListener("click", () => {
   itemsWrapper.classList.toggle("none__visible");
 });
 
+
 // end items in bag
+
+
+
 
 // start addToCardLsit
 
 function addToCardList(productInfo) {
   let cartItem = document.createElement("div");
   cartItem.classList.add("cart-item");
-  itemsWrapper.append(cartItem);
+  itemsWrapper.prepend(cartItem);
   cartItem.innerHTML = `
         <img class = "cart-image" src = "${productInfo.imgSrc}" alt = "product image">
         <div class = "cart-item-info">
@@ -193,6 +205,66 @@ function addToCardList(productInfo) {
         <button type = "button" class = "cart-item-del-btn">
             <i class = "fa fa-times"></i>
         </button>`;
+  
 }
 
 // end addToCardLsit
+
+// save to local storage
+
+function saveProductInStorage(item) {
+  let products = getProductFromStorage();
+  products.push(item);
+  localStorage.setItem("products", JSON.stringify(products));
+
+  iconCounter.innerHTML = products.length;
+}
+
+//  get product from local storage
+
+function getProductFromStorage() {
+  return localStorage.getItem("products")
+    ? JSON.parse(localStorage.getItem("products"))
+    : [];
+}
+
+loadCart();
+
+function loadCart() {
+  let products = getProductFromStorage();
+
+  products.forEach((product) => addToCardList(product));
+  iconCounter.innerHTML = products.length;
+}
+
+// document.addEventListener("click", hide);
+
+// function hide(e) {
+//   if (e.target.className !== "fa fa-shopping-cart fa-3x") {
+//     if (
+//       !itemsWrapper.classList.contains("none__visible") &&
+//       e.target.className !== "items__wrapper" &&
+//       e.target.className !== "cart-item" &&
+//       e.target.className !== "cart-image" &&
+//       e.target.className !== "cart-item-info" &&
+//       e.target.className !== "cart-item-del-btn" &&
+//       e.target.className !== "cart-item-name" &&
+//       e.target.className !== "cart-item-price" &&
+//       e.target.className !== "fa fa-times"
+//     ) {
+//       itemsWrapper.classList.add("none__visible");
+//     }
+//   }
+// }
+
+// count total sum of products
+// function totalSumProducts() {
+//   let products = getProductFromStorage();
+//   let total = 0;
+//   products.forEach((element) => {
+//     total += parseFloat(element.price.substr(0, element.price.length - 1));
+//   });
+//   return { totalSum: total }
+// }
+
+
