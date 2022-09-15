@@ -39,9 +39,6 @@ containerBooks.classList.add("container__books");
 divContainer.append(containerBooks);
 var itemsInBag = [];
 
-
-
-
 fetch("./books.json") //path to the file with json data
   .then((response) => {
     return response.json();
@@ -149,9 +146,6 @@ fetch("./books.json") //path to the file with json data
     // });
   });
 
-
-  
-
 // start getProductInfo;
 
 var cartItemID = 1;
@@ -182,16 +176,13 @@ itemsWrapperFooter.classList.add("items-wrapper-footer");
 itemsWrapperFooter.innerHTML = `<h3>Total: $</h3>
                 <span id = "cart-total-value"></span>`;
 
-
 var cartTotalValue = itemsWrapperFooter.childNodes[2];
-
-
-
 
 iconDiv.append(itemsWrapper);
 itemsWrapper.append(itemsWrapperFooter);
 iconBag.addEventListener("click", () => {
   itemsWrapper.classList.toggle("none__visible");
+  itemsWrapper.addEventListener("click", deleteProduct);
 });
 
 // end items in bag
@@ -202,6 +193,7 @@ function addToCardList(productInfo) {
   let cartItem = document.createElement("div");
   cartItem.classList.add("cart-item");
   itemsWrapper.prepend(cartItem);
+  cartItem.setAttribute("id", productInfo.id);
   cartItem.innerHTML = `
         <img class = "cart-image" src = "${productInfo.imgSrc}" alt = "product image">
         <div class = "cart-item-info">
@@ -224,7 +216,7 @@ function saveProductInStorage(item) {
   localStorage.setItem("products", JSON.stringify(products));
 
   iconCounter.innerHTML = products.length;
-  updateCartInfo(); 
+  updateCartInfo();
 }
 
 //  get product from local storage
@@ -274,8 +266,6 @@ function totalSumProducts() {
   return total;
 }
 
-
-
 // start update cart info
 
 function updateCartInfo() {
@@ -284,8 +274,28 @@ function updateCartInfo() {
   console.log(products);
 }
 
-updateCartInfo(); 
+updateCartInfo();
 
 // end update cart info
 
+// start delete product from cart list end localStorage
+function deleteProduct(e) {
+  let cartItem;
 
+  if (e.target.tagName === "BUTTON") {
+    cartItem = e.target.parentElement;
+    cartItem.remove();
+  } else if (e.target.tagName === "I") {
+    cartItem = e.target.parentElement.parentElement;
+    cartItem.remove();
+  }
+
+  let products = getProductFromStorage();
+  let updateProducts = products.filter((product) => {
+    return product.id !== parseInt(cartItem.dataset.id);
+  });
+
+  console.log(updateProducts);
+  console.log(products);
+}
+// end delete product from cart list end localStorage
