@@ -39,6 +39,9 @@ containerBooks.classList.add("container__books");
 divContainer.append(containerBooks);
 var itemsInBag = [];
 
+
+
+
 fetch("./books.json") //path to the file with json data
   .then((response) => {
     return response.json();
@@ -146,6 +149,9 @@ fetch("./books.json") //path to the file with json data
     // });
   });
 
+
+  
+
 // start getProductInfo;
 
 var cartItemID = 1;
@@ -174,8 +180,13 @@ itemsWrapper.classList.add("items__wrapper");
 itemsWrapper.classList.add("none__visible");
 itemsWrapperFooter.classList.add("items-wrapper-footer");
 itemsWrapperFooter.innerHTML = `<h3>Total: $</h3>
-                <span id = "cart-total-value">0</span>`;
-let cartTotalValue=itemsWrapper.querySelector('#cart-total-value');
+                <span id = "cart-total-value"></span>`;
+
+
+var cartTotalValue = itemsWrapperFooter.childNodes[2];
+
+
+
 
 iconDiv.append(itemsWrapper);
 itemsWrapper.append(itemsWrapperFooter);
@@ -183,11 +194,7 @@ iconBag.addEventListener("click", () => {
   itemsWrapper.classList.toggle("none__visible");
 });
 
-
 // end items in bag
-
-
-
 
 // start addToCardLsit
 
@@ -205,7 +212,6 @@ function addToCardList(productInfo) {
         <button type = "button" class = "cart-item-del-btn">
             <i class = "fa fa-times"></i>
         </button>`;
-  
 }
 
 // end addToCardLsit
@@ -218,6 +224,7 @@ function saveProductInStorage(item) {
   localStorage.setItem("products", JSON.stringify(products));
 
   iconCounter.innerHTML = products.length;
+  updateCartInfo(); 
 }
 
 //  get product from local storage
@@ -258,13 +265,27 @@ function loadCart() {
 // }
 
 // count total sum of products
-// function totalSumProducts() {
-//   let products = getProductFromStorage();
-//   let total = 0;
-//   products.forEach((element) => {
-//     total += parseFloat(element.price.substr(0, element.price.length - 1));
-//   });
-//   return { totalSum: total }
-// }
+function totalSumProducts() {
+  let products = getProductFromStorage();
+  let total = 0;
+  products.forEach((element) => {
+    total += parseFloat(element.price.substr(0, element.price.length - 1));
+  });
+  return total;
+}
+
+
+
+// start update cart info
+
+function updateCartInfo() {
+  let products = totalSumProducts();
+  cartTotalValue.textContent = products;
+  console.log(products);
+}
+
+updateCartInfo(); 
+
+// end update cart info
 
 
